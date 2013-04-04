@@ -77,6 +77,15 @@
 		return document[prop];
 	};
 
+	Visibility.prototype.isSupported = function () {
+		var prop = this.getHiddenProp();
+		if (!prop) { 
+			return false; 
+		} else {
+			return true;
+		}
+	};
+
 	Visibility.prototype.bindContext = function (context, handler) {
 		return function () {
 			return handler.call(context);
