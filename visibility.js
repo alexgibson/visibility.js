@@ -14,7 +14,7 @@
 
 	function Visibility(options) {
 
-		var visProp, evtName, i;
+		var i;
 
 		this.options = {
 			onVisible: null,
@@ -41,17 +41,33 @@
 			}
 		}
 
+		//store a reference to our binding for visibilitychange event
+		//this is needed for removeEventListener if destroy() is called
+		this.change = this.bindContext(this, this.visibilityChange);
+
+		//add an event listener for visibilitychange
+		this.configListener('add');
+	}
+
+	Visibility.prototype.configListener = function (config) {
+
+		var visProp, evtName;
+
 		visProp = this.getHiddenProp();
 
 		if (visProp) {
 			evtName = visProp.replace(/[H|h]idden/, '') + 'visibilitychange';
-			document.addEventListener(evtName, this.bindContext(this, this.visibilityChange), false);
+
+			if (config === 'add') {
+				document.addEventListener(evtName, this.change, false);
+			} else if (config === 'remove') {
+				document.removeEventListener(evtName, this.change, false);
+			}
 		}
-
-
-	}
+	};
 
 	Visibility.prototype.getHiddenProp = function () {
+
 		var prefixes = ['webkit', 'moz', 'ms', 'o'],
 			doc = document,
 			i;
@@ -71,19 +87,21 @@
 	};
 
 	Visibility.prototype.isHidden = function () {
+
 		var prop = this.getHiddenProp();
+
 		if (!prop) { return false; }
 
 		return document[prop];
 	};
 
 	Visibility.prototype.isSupported = function () {
+
 		var prop = this.getHiddenProp();
-		if (!prop) { 
-			return false; 
-		} else {
-			return true;
-		}
+
+		if (!prop) { return false; }
+
+		return true;
 	};
 
 	Visibility.prototype.bindContext = function (context, handler) {
@@ -101,6 +119,12 @@
 		} else if (!hidden && this.onVisibleCallback) {
 			this.onVisibleCallback();
 		}
+	};
+
+	Visibility.prototype.destroy = function () {
+		this.configListener("remove");
+		this.onHiddenCallback = null;
+		this.onVisibleCallback = null;
 	};
 
 	//public
