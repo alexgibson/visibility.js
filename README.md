@@ -33,10 +33,10 @@ function onVisibleFunc () {
 }
 ```
 
-Public methods
+Useful methods
 --------------
 
-* isHidden (returns boolean) - to manually check if the page is hidden
+* isHidden (returns boolean) - manually check to see if the page is hidden
 * isSupported (returns boolean) - test for Page Visibility API browser support
 
 
