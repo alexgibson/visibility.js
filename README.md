@@ -13,7 +13,7 @@ Installation
 Setup
 ---------
 
-First, include the main visibility.js JavaScript file in your HTML document:
+First, include the visibility.js JavaScript file in the `head` of your HTML document:
 
 ```
 <script src="visibility.js"></script>
@@ -38,7 +38,7 @@ Useful methods
 
 * `isHidden` (returns boolean) - manually check to see if the page is hidden
 * `isSupported` (returns boolean) - test for Page Visibility API browser support
-* `destroy` - remove visibilitychange event listener and unregister callbacks
+* `destroy` - remove `visibilitychange` event listener and unregister callbacks
 
 
 Supported web browsers
