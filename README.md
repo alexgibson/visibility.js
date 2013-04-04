@@ -22,7 +22,7 @@ First, include the main visibility.js JavaScript file in your HTML document:
 Next just create a new plugin instance, passing the relevant callbacks you want to use:
 
 ```
-var pageVisible = new Visibility({onHidden: onHiddenFunc, onVisible: onVisibleFunc});
+var page = new Visibility({onHidden: onHiddenFunc, onVisible: onVisibleFunc});
 
 function onHiddenFunc () {
 	console.log('hidden callback');
@@ -31,6 +31,12 @@ function onHiddenFunc () {
 function onVisibleFunc () {
 	console.log('visible callback');
 }
+```
+
+To manually check if the page is hidden, you can call:
+
+```
+page.isHidden() //returns true or false
 ```
 
 Supported web browsers
