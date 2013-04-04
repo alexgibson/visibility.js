@@ -36,8 +36,9 @@ function onVisibleFunc () {
 Useful methods
 --------------
 
-* isHidden (returns boolean) - manually check to see if the page is hidden
-* isSupported (returns boolean) - test for Page Visibility API browser support
+* `isHidden` (returns boolean) - manually check to see if the page is hidden
+* `isSupported` (returns boolean) - test for Page Visibility API browser support
+* `destroy` - remove visibilitychange event listener and unregister callbacks
 
 
 Supported web browsers
