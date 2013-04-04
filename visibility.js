@@ -4,6 +4,8 @@
  * http://alxgbsn.co.uk
  */
 
+ /* please note some of the methods here are from http://www.html5rocks.com/en/tutorials/pagevisibility/intro/ */
+
 /*global clearInterval: false, clearTimeout: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false, console: false */
 
 (function (window, document) {
