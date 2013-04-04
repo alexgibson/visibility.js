@@ -33,11 +33,12 @@ function onVisibleFunc () {
 }
 ```
 
-To manually check if the page is hidden, you can call:
+Public methods
+--------------
 
-```
-page.isHidden() //returns true or false
-```
+* isHidden (returns boolean) - to manually check if the page is hidden
+* isSupported (returns boolean) - test for Page Visibility API browser support
+
 
 Supported web browsers
 ---------------------------------------
