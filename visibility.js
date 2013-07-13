@@ -1,133 +1,136 @@
-/*
- * Copyright (c) 2013 Alex Gibson
- * Released under MIT license
- * http://alxgbsn.co.uk
- */
+(function(root, factory) {
 
- /* please note some of the methods here are from http://www.html5rocks.com/en/tutorials/pagevisibility/intro/ */
+    'use strict';
 
-/*global clearInterval: false, clearTimeout: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false, console: false */
+    if (typeof define === 'function' && define.amd) {
+        // AMD environment
+        define('visibility', [], function() {
+            factory(root, window.document);
+            return root.Visibility;
+        });
+    } else {
+        // Browser environment
+        factory(root, window.document);
+    }
 
-(function (window, document) {
+}(this, function(w, d) {
 
-	'use strict';
+    'use strict';
 
-	function Visibility(options) {
+    function Visibility(options) {
 
-		var i;
+        var i;
 
-		this.options = {
-			onVisible: null,
-			onHidden: null
-		};
+        this.options = {
+            onVisible: null,
+            onHidden: null
+        };
 
-		//User defined options
-		if (typeof options === 'object') {
+        //User defined options
+        if (typeof options === 'object') {
 
-			for (i in options) {
-				if (options.hasOwnProperty(i)) {
-					this.options[i] = options[i];
-				}
-			}
+            for (i in options) {
+                if (options.hasOwnProperty(i)) {
+                    this.options[i] = options[i];
+                }
+            }
 
-			//callback when page is hidden
-			if (typeof this.options.onHidden === 'function') {
-				this.onHiddenCallback = this.options.onHidden;
-			}
+            //callback when page is hidden
+            if (typeof this.options.onHidden === 'function') {
+                this.onHiddenCallback = this.options.onHidden;
+            }
 
-			//callback when page is visible
-			if (typeof this.options.onVisible === 'function') {
-				this.onVisibleCallback = this.options.onVisible;
-			}
-		}
+            //callback when page is visible
+            if (typeof this.options.onVisible === 'function') {
+                this.onVisibleCallback = this.options.onVisible;
+            }
+        }
 
-		//store a reference to our binding for visibilitychange event
-		//this is needed for removeEventListener if destroy() is called
-		this.change = this.bindContext(this, this.visibilityChange);
+        //store a reference to our binding for visibilitychange event
+        //this is needed for removeEventListener if destroy() is called
+        this.change = this.bindContext(this, this.visibilityChange);
 
-		//add an event listener for visibilitychange
-		this.configListener('add');
-	}
+        //add an event listener for visibilitychange
+        this.configListener('add');
+    }
 
-	Visibility.prototype.configListener = function (config) {
+    Visibility.prototype.configListener = function (config) {
 
-		var visProp, evtName;
+        var visProp, evtName;
 
-		visProp = this.getHiddenProp();
+        visProp = this.getHiddenProp();
 
-		if (visProp) {
-			evtName = visProp.replace(/[H|h]idden/, '') + 'visibilitychange';
+        if (visProp) {
+            evtName = visProp.replace(/[H|h]idden/, '') + 'visibilitychange';
 
-			if (config === 'add') {
-				document.addEventListener(evtName, this.change, false);
-			} else if (config === 'remove') {
-				document.removeEventListener(evtName, this.change, false);
-			}
-		}
-	};
+            if (config === 'add') {
+                d.addEventListener(evtName, this.change, false);
+            } else if (config === 'remove') {
+                d.removeEventListener(evtName, this.change, false);
+            }
+        }
+    };
 
-	Visibility.prototype.getHiddenProp = function () {
+    Visibility.prototype.getHiddenProp = function () {
 
-		var prefixes = ['webkit', 'moz', 'ms', 'o'],
-			doc = document,
-			i;
+        var prefixes = ['webkit', 'moz', 'ms', 'o'],
+            i;
 
-		// if 'hidden' is natively supported just return it
-		if ('hidden' in doc) { return 'hidden'; }
+        // if 'hidden' is natively supported just return it
+        if ('hidden' in d) { return 'hidden'; }
 
-		// otherwise loop over all the known prefixes until we find one
-		for (i = 0; i < prefixes.length; i += 1) {
-			if ((prefixes[i] + 'Hidden') in doc) {
-				return prefixes[i] + 'Hidden';
-			}
-		}
+        // otherwise loop over all the known prefixes until we find one
+        for (i = 0; i < prefixes.length; i += 1) {
+            if ((prefixes[i] + 'Hidden') in d) {
+                return prefixes[i] + 'Hidden';
+            }
+        }
 
-		// otherwise it's not supported
-		return null;
-	};
+        // otherwise it's not supported
+        return null;
+    };
 
-	Visibility.prototype.isHidden = function () {
+    Visibility.prototype.isHidden = function () {
 
-		var prop = this.getHiddenProp();
+        var prop = this.getHiddenProp();
 
-		if (!prop) { return false; }
+        if (!prop) { return false; }
 
-		return document[prop];
-	};
+        return d[prop];
+    };
 
-	Visibility.prototype.isSupported = function () {
+    Visibility.prototype.isSupported = function () {
 
-		var prop = this.getHiddenProp();
+        var prop = this.getHiddenProp();
 
-		if (!prop) { return false; }
+        if (!prop) { return false; }
 
-		return true;
-	};
+        return true;
+    };
 
-	Visibility.prototype.bindContext = function (context, handler) {
-		return function () {
-			return handler.call(context);
-		};
-	};
+    Visibility.prototype.bindContext = function (context, handler) {
+        return function () {
+            return handler.call(context);
+        };
+    };
 
-	Visibility.prototype.visibilityChange = function () {
+    Visibility.prototype.visibilityChange = function () {
 
-		var hidden = this.isHidden();
+        var hidden = this.isHidden();
 
-		if (hidden && this.onHiddenCallback) {
-			this.onHiddenCallback();
-		} else if (!hidden && this.onVisibleCallback) {
-			this.onVisibleCallback();
-		}
-	};
+        if (hidden && this.onHiddenCallback) {
+            this.onHiddenCallback();
+        } else if (!hidden && this.onVisibleCallback) {
+            this.onVisibleCallback();
+        }
+    };
 
-	Visibility.prototype.destroy = function () {
-		this.configListener("remove");
-		this.onHiddenCallback = null;
-		this.onVisibleCallback = null;
-	};
+    Visibility.prototype.destroy = function () {
+        this.configListener('remove');
+        this.onHiddenCallback = null;
+        this.onVisibleCallback = null;
+    };
 
-	//public
-	window.Visibility = Visibility;
+    w.Visibility = Visibility;
 
-}(window, document));
+}));

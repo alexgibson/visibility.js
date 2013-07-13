@@ -13,13 +13,9 @@ Installation
 Setup
 ---------
 
-First, include the visibility.js JavaScript file in the `head` of your HTML document:
+This component can be used as an AMD module, or a global.
 
-```
-<script src="visibility.js"></script>
-```
-
-Next just create a new plugin instance, passing the relevant callbacks you want to use:
+To use simply create a new `Visibility` instance, passing the relevant callbacks you need.
 
 ```
 var page = new Visibility({onHidden: onHiddenFunc, onVisible: onVisibleFunc});
