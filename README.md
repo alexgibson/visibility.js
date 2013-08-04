@@ -3,6 +3,8 @@ visibility.js
 
 A cross-browser plugin for using the Page Visibility API
 
+[![Build Status](https://travis-ci.org/alexgibson/visibility.js.png?branch=master)](https://travis-ci.org/alexgibson/visibility.js)
+
 Installation
 ---------------------------------------
 
