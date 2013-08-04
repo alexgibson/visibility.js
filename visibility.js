@@ -1,25 +1,22 @@
-(function(root, factory) {
+(function (root, factory) {
 
     'use strict';
 
     if (typeof define === 'function' && define.amd) {
         // AMD environment
-        define('visibility', [], function() {
-            factory(root, window.document);
-            return root.Visibility;
+        define('visibility', [], function () {
+            return factory(root, document);
         });
     } else {
         // Browser environment
-        factory(root, window.document);
+        root.Visibility = factory(root, document);
     }
 
-}(this, function(w, d) {
+}(this, function (w, d) {
 
     'use strict';
 
     function Visibility(options) {
-
-        var i;
 
         this.options = {
             onVisible: null,
@@ -29,7 +26,7 @@
         //User defined options
         if (typeof options === 'object') {
 
-            for (i in options) {
+            for (var i in options) {
                 if (options.hasOwnProperty(i)) {
                     this.options[i] = options[i];
                 }
@@ -73,14 +70,13 @@
 
     Visibility.prototype.getHiddenProp = function () {
 
-        var prefixes = ['webkit', 'moz', 'ms', 'o'],
-            i;
+        var prefixes = ['webkit', 'moz', 'ms', 'o'];
 
         // if 'hidden' is natively supported just return it
         if ('hidden' in d) { return 'hidden'; }
 
         // otherwise loop over all the known prefixes until we find one
-        for (i = 0; i < prefixes.length; i += 1) {
+        for (var i = 0; i < prefixes.length; i += 1) {
             if ((prefixes[i] + 'Hidden') in d) {
                 return prefixes[i] + 'Hidden';
             }
@@ -131,6 +127,6 @@
         this.onVisibleCallback = null;
     };
 
-    w.Visibility = Visibility;
+    return Visibility;
 
 }));

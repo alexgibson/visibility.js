@@ -17,5 +17,11 @@
         "type": "MIT",
         "url": "http://opensource.org/licenses/MIT"
     }],
-    "dependencies": {}
+    "ignore": [
+        "test",
+        ".jshintrc",
+        "karma.conf.js",
+        "package.json",
+        ".travis.yml"
+    ]
 }
