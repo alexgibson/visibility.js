@@ -55,7 +55,7 @@
 
         var visProp, evtName;
 
-        visProp = this.getHiddenProp();
+        visProp = this.getHiddenProp(d);
 
         if (visProp) {
             evtName = visProp.replace(/[H|h]idden/, '') + 'visibilitychange';
@@ -68,16 +68,16 @@
         }
     };
 
-    Visibility.prototype.getHiddenProp = function () {
+    Visibility.prototype.getHiddenProp = function (doc) {
 
         var prefixes = ['webkit', 'moz', 'ms', 'o'];
 
         // if 'hidden' is natively supported just return it
-        if ('hidden' in d) { return 'hidden'; }
+        if ('hidden' in doc) { return 'hidden'; }
 
         // otherwise loop over all the known prefixes until we find one
         for (var i = 0; i < prefixes.length; i += 1) {
-            if ((prefixes[i] + 'Hidden') in d) {
+            if ((prefixes[i] + 'Hidden') in doc) {
                 return prefixes[i] + 'Hidden';
             }
         }
@@ -88,7 +88,7 @@
 
     Visibility.prototype.isHidden = function () {
 
-        var prop = this.getHiddenProp();
+        var prop = this.getHiddenProp(d);
 
         if (!prop) { return false; }
 
@@ -97,7 +97,7 @@
 
     Visibility.prototype.isSupported = function () {
 
-        var prop = this.getHiddenProp();
+        var prop = this.getHiddenProp(d);
 
         if (!prop) { return false; }
 

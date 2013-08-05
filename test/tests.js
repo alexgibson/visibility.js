@@ -37,23 +37,29 @@ describe('callbacks', function () {
 
 describe('getHiddenProp', function () {
 
-    it('should return the correct hidden property if available', function () {
+    it('should return the hidden property', function () {
         var instance = new Visibility();
-        var prop = instance.getHiddenProp();
-        var doc = document;
+        var mock = {
+            hidden: 'foo'
+        };
+        var prop = instance.getHiddenProp(mock);
+        expect(prop).toEqual('hidden');
+    });
 
-        if ('hidden' in doc) {
-            expect(prop).toEqual('hidden');
-        } else if ('webkitHidden' in doc) {
-            expect(prop).toEqual('webkitHidden');
-        } else if ('mozHidden' in doc) {
-            expect(prop).toEqual('mozHidden');
-        } else if ('msHidden' in doc) {
-            expect(prop).toEqual('msHidden');
-        } else {
-            expect(prop).toEqual(null);
-        }
-        
+    it('should return a vendor prefixed property if needed', function () {
+        var instance = new Visibility();
+        var mock = {
+            webkitHidden: 'foo'
+        };
+        var prop = instance.getHiddenProp(mock);
+        expect(prop).toEqual('webkitHidden');
+    });
+
+    it('should return null if not supported', function () {
+        var instance = new Visibility();
+        var mock = {};
+        var prop = instance.getHiddenProp(mock);
+        expect(prop).toEqual(null);
     });
 
 });
