@@ -20,13 +20,16 @@ This component can be used as an AMD module, or a global.
 To use create a new `Visibility` instance, passing the relevant callbacks you need.
 
 ```
-var page = new Visibility({onHidden: onHiddenFunc, onVisible: onVisibleFunc});
+var page = new Visibility({
+	onHidden: hiddenCallback, 
+	onVisible: visibleCallback
+});
 
-function onHiddenFunc () {
+function hiddenCallback () {
 	console.log('hidden callback');
 }
 
-function onVisibleFunc () {
+function visibleCallback () {
 	console.log('visible callback');
 }
 ```
