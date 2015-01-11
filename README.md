@@ -15,13 +15,13 @@ Installation
 Setup
 ---------
 
-This component can be used as an AMD module, or a global.
+This component can be used as an AMD module, CommonJS module, or a global.
 
 To use create a new `Visibility` instance, passing the relevant callbacks you need.
 
 ```
 var page = new Visibility({
-	onHidden: hiddenCallback, 
+	onHidden: hiddenCallback,
 	onVisible: visibleCallback
 });
 

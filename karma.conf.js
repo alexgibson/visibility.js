@@ -19,7 +19,7 @@ files = [
 
 // list of files to exclude
 exclude = [
-  
+
 ];
 
 
@@ -57,7 +57,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['PhantomJS'];
+browsers = ['Firefox'];
 
 
 // If browser does not capture in given timeout [ms], kill it

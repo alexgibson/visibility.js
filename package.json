@@ -4,7 +4,6 @@
   "description": "A cross-browser component for using the page Visibility API",
   "devDependencies": {
     "karma": "~0.8.5",
-    "phantomjs": "~1.9.0-1",
     "sinon": "~1.7.3"
   },
   "repository": {
@@ -21,6 +20,6 @@
     "url": "https://github.com/alexgibson/visibility.js/issues"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --browsers PhantomJS --single-run"
+    "test": "./node_modules/.bin/karma start --browsers Firefox --single-run"
   }
 }
