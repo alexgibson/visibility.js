@@ -1,18 +1,23 @@
-(function (root, factory) {
+/*
+ * Author: Alex Gibson
+ * https://github.com/alexgibson/visibility.js
+ * License: MIT license
+ */
 
-    'use strict';
-
+(function(global, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD environment
-        define('visibility', [], function () {
-            return factory(root, document);
+        define(function() {
+            return factory(global, global.document);
         });
+    } else if (typeof module !== 'undefined' && module.exports) {
+        // CommonJS environment
+        module.exports = factory(global, global.document);
     } else {
         // Browser environment
-        root.Visibility = factory(root, document);
+        global.Visibility = factory(global, global.document);
     }
-
-}(this, function (w, d) {
+} (typeof window !== 'undefined' ? window : this, function (w, d) {
 
     'use strict';
 

@@ -1,7 +1,7 @@
 {
     "name": "visibility.js",
     "description": "A cross-browser plugin for using the Page Visibility API",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "author": {
         "name": "Alex Gibson",
         "email": "alxgbsn@gmail.com"
